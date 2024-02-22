@@ -1,4 +1,4 @@
-echo -e "\e[33m Disabling mysql default verin  \e[0m"
+echo -e "\e[33m Disabling mysql default version  \e[0m"
 dnf module disable mysql -y
 
 echo -e "\e[33m Create mysql Repo  \e[0m"
