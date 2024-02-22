@@ -5,7 +5,7 @@ echo -e "\e[34m Enabling nodejs 18 version \e[0m"
 dnf module enable nodejs:18 -y
 
 echo -e "\e[34m Installing nodejs \e[0m"
-dnf install nodejs - y
+dnf install nodejs -y
 
 echo -e "\e[34m Copying backend config file \e[0m"
 cp backend.service /etc/systemd/system/backend.service
