@@ -6,7 +6,7 @@ dnf module disable nodejs -y &>> $log_file
 if [ $? -eq 0 ]; then
 echo -e "\e[35m Success \e[0m"
 else
-echo failure
+echo -e "\e[36m Failure \e[0m"
 fi
 
 echo -e "${color} Enabling nodejs 18 version \e[0m"
@@ -14,7 +14,7 @@ dnf module enable nodejs:18 -y &>> $log_file
 if [ $? -eq 0 ]; then
 echo -e "\e[35m Success \e[0m"
 else
-echo failure
+echo -e "\e[36m Failure \e[0m"
 fi
 
 echo -e "${color} Installing nodejs \e[0m"
@@ -22,7 +22,7 @@ dnf install nodejs -y &>> $log_file
 if [ $? -eq 0 ]; then
 echo -e "\e[35m Success \e[0m"
 else
-echo failure
+echo -e "\e[36m Failure \e[0m"
 fi
 
 echo -e "${color} Copying backend config file \e[0m"
@@ -30,7 +30,7 @@ cp backend.service /etc/systemd/system/backend.service &>> $log_file
 if [ $? -eq 0 ]; then
 echo -e "\e[35m Success \e[0m"
 else
-echo failure
+echo -e "\e[36m Failure \e[0m"
 fi
 
 echo -e "${color} Adding expense user \e[0m"
@@ -38,7 +38,7 @@ useradd expense &>> $log_file
 if [ $? -eq 0 ]; then
 echo -e "\e[35m Success \e[0m"
 else
-echo failure
+echo -e "\e[36m Failure \e[0m"
 fi
 
 echo -e "${color} Creating directory \e[0m"
@@ -46,7 +46,7 @@ mkdir /app &>> $log_file
 if [ $? -eq 0 ]; then
 echo -e "\e[35m Success \e[0m"
 else
-echo failure
+echo -e "\e[36m Failure \e[0m"
 fi
 
 echo -e "${color} Removing old content \e[0m"
@@ -54,7 +54,7 @@ rm -rf /app/* &>> $log_file
 if [ $? -eq 0 ]; then
 echo -e "\e[35m Success \e[0m"
 else
-echo failure
+echo -e "\e[36m Failure \e[0m"
 fi
 
 echo -e "${color} Downloading and extracting backend file \e[0m"
@@ -64,7 +64,7 @@ unzip /tmp/backend.zip &>> $log_file
 if [ $? -eq 0 ]; then
 echo -e "\e[35m Success \e[0m"
 else
-echo failure
+echo -e "\e[36m Failure \e[0m"
 fi
 
 echo -e "${color} Installing nodejs dependencies \e[0m"
@@ -72,7 +72,7 @@ npm install &>> $log_file
 if [ $? -eq 0 ]; then
 echo -e "\e[35m Success \e[0m"
 else
-echo failure
+echo -e "\e[36m Failure \e[0m"
 fi
 
 echo -e "${color} Installing mysql client \e[0m"
@@ -80,15 +80,15 @@ dnf install mysql -y &>> $log_file
 if [ $? -eq 0 ]; then
 echo -e "\e[35m Success \e[0m"
 else
-echo failure
+echo -e "\e[36m Failure \e[0m"
 fi
 
 echo -e "${color} Loading the schema \e[0m"
-mysql -h mysql-dev.sbadiger93.online -uroot -pExpenseApp@1 < /app/schema/backend.sql &>> /tmp/expense.log
+mysql -h mysql-dev.sbadiger93.online -uroot -pExpenseApp@1 < /app/schema/backend.sql &>> $log_file
 if [ $? -eq 0 ]; then
 echo -e "\e[35m Success \e[0m"
 else
-echo failure
+echo -e "\e[36m Failure \e[0m"
 fi
 
 
@@ -99,6 +99,6 @@ systemctl restart backend &>> $log_file
 if [ $? -eq 0 ]; then
 echo -e "\e[35m Success \e[0m"
 else
-echo failure
+echo -e "\e[36m Failure \e[0m"
 fi
 
