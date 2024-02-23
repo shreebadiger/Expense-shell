@@ -1,5 +1,6 @@
 log_file="/tmp/expense.log"
 color="\e[34m"
+MY_SQL_PASSWORD=$1
 
 echo -e "${color} Disabling Nodejs default version \e[0m"
 dnf module disable nodejs -y &>> $log_file
@@ -33,12 +34,15 @@ else
 echo -e "\e[36m Failure \e[0m"
 fi
 
-echo -e "${color} Adding expense user \e[0m"
-useradd expense &>> $log_file
-if [ $? -eq 0 ]; then
-echo -e "\e[35m Success \e[0m"
-else
+id expense &>> $log_file
+if [ $? -ne 0 ]; then
+   echo -e "${color} Adding expense user \e[0m"
+   useradd expense &>> $log_file
+  if [ $? -eq 0 ]; then
+         echo -e "\e[35m Success \e[0m"
+    else
 echo -e "\e[36m Failure \e[0m"
+  fi
 fi
 
 echo -e "${color} Creating directory \e[0m"
@@ -86,9 +90,9 @@ fi
 echo -e "${color} Loading the schema \e[0m"
 mysql -h mysql-dev.sbadiger93.online -uroot -pExpenseApp@1 < /app/schema/backend.sql &>> $log_file
 if [ $? -eq 0 ]; then
-echo -e "\e[35m Success \e[0m"
+    echo -e "\e[35m Success \e[0m"
 else
-echo -e "\e[36m Failure \e[0m"
+    echo -e "\e[36m Failure \e[0m"
 fi
 
 
