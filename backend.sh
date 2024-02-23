@@ -45,7 +45,7 @@ echo -e "\e[36m Failure \e[0m"
   fi
 fi
 
-if [ !-d /app ]; then
+if [ ! -d /app ]; then
 echo -e "${color} Creating directory \e[0m"
 mkdir /app &>> $log_file
   if [ $? -eq 0 ]; then
