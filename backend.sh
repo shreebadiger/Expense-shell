@@ -45,12 +45,14 @@ echo -e "\e[36m Failure \e[0m"
   fi
 fi
 
+if [ !-d /app ]; then
 echo -e "${color} Creating directory \e[0m"
 mkdir /app &>> $log_file
-if [ $? -eq 0 ]; then
-echo -e "\e[35m Success \e[0m"
-else
-echo -e "\e[36m Failure \e[0m"
+  if [ $? -eq 0 ]; then
+    echo -e "\e[35m Success \e[0m"
+   else
+    echo -e "\e[36m Failure \e[0m"
+  fi
 fi
 
 echo -e "${color} Removing old content \e[0m"
@@ -88,7 +90,7 @@ echo -e "\e[36m Failure \e[0m"
 fi
 
 echo -e "${color} Loading the schema \e[0m"
-mysql -h mysql-dev.sbadiger93.online -uroot -pExpenseApp@1 < /app/schema/backend.sql &>> $log_file
+mysql -h mysql-dev.sbadiger93.online -uroot -p${MY_SQL_PASSWORD} < /app/schema/backend.sql &>> $log_file
 if [ $? -eq 0 ]; then
     echo -e "\e[35m Success \e[0m"
 else

@@ -22,3 +22,5 @@ echo -e "${color} Setting up username and password to mysql database \e[0m"
 mysql_secure_installation --set-root-pass ExpenseApp@1 &>> $log_file
 echo $?
 
+
+
